@@ -163,7 +163,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                            $statementAbt = $this->db->query("SELECT * FROM tbl_settings_contact WHERE 1");
                            foreach ($statementAbt->result() as $rowA) {
                         ?>
-                        <ul class="header-top-social-icons social-icons social-icons-transparent  ">
+                        <ul class="header-top-social-icons social-icons social-icons-transparent  flex-start-mobile">
                            <li class="social-icons-facebook">
                               <a href="<?=$rowA->contact20;?>" target="_blank" title="Facebook"> <i class="fab fa-facebook-square"></i> </a>
                            </li>
@@ -339,7 +339,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                              <li><a class="dropdown-item" href="<?=base_url('product/'.$cat->category_slug.'.html')?>"><?=$cat->category_name;?></a></li>
                                              <?php } ?>
 
-                                             
+                                             <li><a class="dropdown-item" href="<?= base_url('Home/omnicom'); ?>">Video Compression Solution</a></li>
+
+                                                <li><a class="dropdown-item" href="<?= base_url('product/drone') ?>">Drones</a></li>
                                           </ul>
                                        </li> 
                                     

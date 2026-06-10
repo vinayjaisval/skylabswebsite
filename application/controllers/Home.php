@@ -12,7 +12,6 @@ class Home extends CI_Controller {
 
 	public function index(){
 
-	
 		$data['meta_title'] = "Home";
 
 		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
@@ -176,8 +175,85 @@ class Home extends CI_Controller {
 			redirect($referred_from, 'refresh');
 		}
 	}
+  
+  
+  public function career()
+{
+    $post = $this->input->post();
 
-      public function career()
+    if (empty($post['name']) || empty($post['email']) || empty($post['phone'])) {
+        $this->session->set_flashdata('error','Please Fill Correct Details!!');
+        redirect($this->session->userdata('referred_from'),'refresh');
+    }
+
+    $filePath = '';
+
+    if (!empty($_FILES['cv_upload']['name'])) {
+
+        $allowedTypes = ['pdf','doc','docx'];
+        $ext = strtolower(pathinfo($_FILES['cv_upload']['name'], PATHINFO_EXTENSION));
+
+        if (!in_array($ext, $allowedTypes)) {
+            $this->session->set_flashdata('error','Invalid file type');
+            redirect($this->session->userdata('referred_from'),'refresh');
+        }
+
+        if ($_FILES['cv_upload']['size'] > 2 * 1024 * 1024) {
+            $this->session->set_flashdata('error','File size max 2MB');
+            redirect($this->session->userdata('referred_from'),'refresh');
+        }
+
+        $safeName = 'resume_' . time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
+        $uploadFolder = FCPATH.'assets/assets/resume/';
+
+        if (!move_uploaded_file($_FILES['cv_upload']['tmp_name'], $uploadFolder.$safeName)) {
+            $this->session->set_flashdata('error','Upload failed');
+            redirect($this->session->userdata('referred_from'),'refresh');
+        }
+
+        $filePath = $uploadFolder.$safeName;
+    }
+
+    $bodyMsg = "
+        Name : {$post['name']}<br>
+        Email : {$post['email']}<br>
+        Phone : {$post['phone']}<br>
+        Experience : {$post['experience']}<br>
+        Post Applied : {$post['post_applied']}<br>
+        Message : {$post['message']}
+    ";
+
+    $this->load->library('email');
+
+    $this->email->initialize([
+        'protocol' => 'smtp',
+        'smtp_host' => 'smtp.gmail.com',
+        'smtp_port' => 587,
+        'smtp_user' => getenv('SMTP_USER'),
+        'smtp_pass' => getenv('SMTP_PASS'),
+        'smtp_crypto' => 'tls',
+        'mailtype' => 'html',
+        'charset' => 'utf-8',
+        'newline' => "\r\n"
+    ]);
+
+    $this->email->from(getenv('SMTP_USER'), 'Career Form');
+    $this->email->to(getenv('SMTP_USER'));
+    $this->email->subject('Resume');
+    $this->email->message($bodyMsg);
+
+    if ($filePath) {
+        $this->email->attach($filePath);
+    }
+
+    $this->email->send();
+
+    $this->session->set_flashdata('success','Resume Sent Successfully');
+    redirect($this->session->userdata('referred_from'),'refresh');
+}
+
+
+      public function careerold()
 	{
 	    
 	    error_reporting(0);
@@ -213,28 +289,26 @@ class Home extends CI_Controller {
 			$this->load->helper('url');
 			$this->load->helper('form');
 			$config = Array(
-				
-			
-            
-                'protocol'=>'smtp',
-				'smtp_host'=>'mail27.skylabstech.com',
+				'protocol'=>'smtp',
+				'smtp_host'=>'smtp.gmail.com',
 				'smtp_port'=>'587',
-				// 'smtp_user'=>'skylabs.solutions.pvt.ltd@gmail.com',
-				// 'smtp_pass'=>'uing zwjj oafk jphv',
-				'smtp_user'=>'enquiry@skylabstech.com',
-				'smtp_pass'=>'Tech123!@#',
+				'smtp_user'=>'kamalsainiofficals@gmail.com',
+				'smtp_pass'=>'ukmu jcuu thmr evwo',
 				'smtp_crypto' => 'tls',
 				'mailtype'=>'html',
 				'smtp_timeout' => '4', 
 				'charset' => 'iso-8859-1',
 				'wordwrap' => 'true',
 				'newline'=>"\r\n"
-   );
+			);
+            
+
+   
 			// $this->load->library('email','$config');
 			$this->email->initialize($config);
 			$this->email->set_newline("\r\n");
-			$this->email->from('enquiry@skylabstech.com',"test");
-			$this->email->to('enquiry@skylabstech.com');
+			$this->email->from('kamalsainiofficals@gmail.com',"test");
+			$this->email->to('kamalsainiofficals@gmail.com');
 			$this->email->attach('./assets/assets/resume/'.$imageName);
 			$this->email->subject('resume');
 			$this->email->message($bodyMsg);
@@ -332,5 +406,555 @@ class Home extends CI_Controller {
 
 
 
+	public function syber(){
+
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		$this->load->view('pages/cyber/security');
+		$this->load->view('pages/inc/footer');
+	}
+
+
+	public function mdmservice(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/mdmservice');
+		$this->load->view('pages/inc/footer');
+	}
+	public function patch(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/patch');
+		$this->load->view('pages/inc/footer');
+	}
+	public function sosservice(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/service');
+		$this->load->view('pages/inc/footer');
+	}
+
+	public function cmservice(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/vmservice');
+		$this->load->view('pages/inc/footer');
+	}
+	public function firewellmanagement(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/firewell');
+		$this->load->view('pages/inc/footer');
+	}
+	public function networkservice(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/network');
+		$this->load->view('pages/inc/footer');
+	}
+	public function digital(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/digitalservice');
+		$this->load->view('pages/inc/footer');
+	}
+	public function sentilineservice(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/centiline');
+		$this->load->view('pages/inc/footer');
+	}
+	public function cybersecurity(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/cybermanagementsecurity');
+		$this->load->view('pages/inc/footer');
+	}
+
+	public function vulnerability(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/vulnerability');
+		$this->load->view('pages/inc/footer');
+	}
+
+	public function omnistreams(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/omnistream');
+		$this->load->view('pages/inc/footer');
+	}
+
+	public function omnimedia(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/omniimage');
+		$this->load->view('pages/inc/footer');
+	}
+	public function omnimedical(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/omnimedi');
+		$this->load->view('pages/inc/footer');
+	}
+	public function omniviewer(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/omniview');
+		$this->load->view('pages/inc/footer');
+	}
+	public function omnicom(){
+
+
+		$data['meta_title'] = "Home";
+
+		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
+
+		$setting = $this->home_model->fetch_data('tbl_settings', 'id');
+		foreach ($setting as $row) {
+			$data['logo'] = $row->logo;
+			$data['favicon'] = $row->favicon;
+			$data['footer_about'] = $row->footer_about;
+			$data['footer_copyright'] = $row->footer_copyright;
+			$data['contact_email'] = $row->contact_email;
+			$data['contact_address'] = $row->contact_address;
+			$data['contact_phone'] = $row->contact_phone;
+			$data['meta_keyword'] = $row->meta_keyword_home;
+			$data['meta_description'] = $row->meta_description_home;
+			$data['meta_title'] = $row->meta_title_home;
+			$data['contact_fax'] = $row->contact_fax;
+		}
+
+		$data['category'] = $this->home_model->get_where('tbl_category_prod', 'status', '1');
+		$data['cart_count'] = $this->home_model->get_where_count('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['cart_prod'] = $this->home_model->get_where('tbl_prod_cart', 'user_ip', $this->user_ip_address());
+		$data['wishlist_count'] = $this->home_model->get_where_count('tbl_prod_whishlist', 'user_ip', $this->user_ip_address());
+		$data['compare_count'] = $this->home_model->get_where_count('tbl_prod_compare', 'user_ip', $this->user_ip_address());
+
+		$this->load->view('pages/inc/header', $data);
+		// $this->load->view('pages/inc/slider');
+		// $this->load->view('pages/cyber/security');
+		$this->load->view('pages/cyber/omnicoms');
+		$this->load->view('pages/inc/footer');
+	}
 
 }

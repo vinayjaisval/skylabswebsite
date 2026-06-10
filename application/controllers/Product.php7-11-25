@@ -539,7 +539,7 @@ class Product extends CI_Controller {
 
 /*************  ✨ Windsurf Command ⭐  *************/
 /*******  71c9be46-fab2-4e7c-a31c-15e92f7004f8  *******/
-public function drone(){
+public function all_pro(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -564,12 +564,12 @@ public function drone(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/drone');
+        $this->load->view('pages/cyber/prodct');
         $this->load->view('pages/inc/footer');
     }
 
 
-public function kisan_lite(){
+public function all_vayupankh(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -594,11 +594,11 @@ public function kisan_lite(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/kisan_lite');
+        $this->load->view('pages/cyber/vayupank');
         $this->load->view('pages/inc/footer');
     }
 
-	public function kisan_pro(){
+	public function all_viyukishan(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -623,11 +623,11 @@ public function kisan_lite(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/kisan_pro');
+        $this->load->view('pages/cyber/viyukishan');
         $this->load->view('pages/inc/footer');
     }
 
-public function kisan_ultra(){
+public function all_viyusky(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -652,11 +652,11 @@ public function kisan_ultra(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/kisan_ultra');
+        $this->load->view('pages/cyber/viyuskylane');
         $this->load->view('pages/inc/footer');
     }
 
-public function kisan_dispenser(){
+public function all_skycarter(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -681,11 +681,11 @@ public function kisan_dispenser(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/kisan_dispenser');
+        $this->load->view('pages/cyber/skycarter');
         $this->load->view('pages/inc/footer');
     }
 
-public function heavy_lift(){
+public function all_skyheavy(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -710,11 +710,11 @@ public function heavy_lift(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/heavy_lift');
+        $this->load->view('pages/cyber/skyheavy');
         $this->load->view('pages/inc/footer');
     }
 
-	public function kisan_thether(){
+	public function all_skyteather(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -739,10 +739,10 @@ public function heavy_lift(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/kisan_thether');
+        $this->load->view('pages/cyber/skythether');
         $this->load->view('pages/inc/footer');
     }
-public function carter30x(){
+public function all_carter30x(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -767,11 +767,11 @@ public function carter30x(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/carter30x');
+        $this->load->view('pages/cyber/carter-30x');
         $this->load->view('pages/inc/footer');
     }
 
-	public function carter180x(){
+	public function all_carter180(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -801,7 +801,7 @@ public function carter30x(){
     }
 
 
-	public function carter24(){
+	public function all_carter24(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -830,7 +830,7 @@ public function carter30x(){
         $this->load->view('pages/inc/footer');
     }
 
-		public function carter640(){
+		public function all_carter640(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -860,7 +860,7 @@ public function carter30x(){
     }
 
 
-		public function kisan_Spectral(){
+		public function all_Spectral(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -885,12 +885,12 @@ public function carter30x(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/kisan_spectral');
+        $this->load->view('pages/cyber/spectral');
         $this->load->view('pages/inc/footer');
     }
 
 
-		public function kisan_system(){
+		public function all_system(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -915,12 +915,12 @@ public function carter30x(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/kisan_system');
+        $this->load->view('pages/cyber/systems');
         $this->load->view('pages/inc/footer');
     }
 
 
-	public function style_5 (){
+	public function all_freestyle (){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -945,12 +945,12 @@ public function carter30x(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/style_5');
+        $this->load->view('pages/cyber/freestyle');
         $this->load->view('pages/inc/footer');
     }
 
 
-	public function style_7(){
+	public function all_kisanpro(){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -975,13 +975,13 @@ public function carter30x(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/style_7');
+        $this->load->view('pages/cyber/kisanpro');
         $this->load->view('pages/inc/footer');
     }
 
 
 
-	public function style_3 (){
+	public function all_freesheet (){
         $data['meta_title'] = "Home";
         $data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
         $setting = $this->home_model->fetch_data('tbl_settings', 'id');
@@ -1006,7 +1006,7 @@ public function carter30x(){
         $this->load->view('pages/inc/header', $data);
         // $this->load->view('pages/inc/slider');
         // $this->load->view('pages/cyber/security');
-        $this->load->view('pages/cyber/style_3');
+        $this->load->view('pages/cyber/freesky');
         $this->load->view('pages/inc/footer');
     }
 

