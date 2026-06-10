@@ -37,7 +37,9 @@ foreach ($statement->result() as $rowH) {
         <p style="text-align:justify;" class="mb-3 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="300"> <?=$rowH->home_19;?> </p>
       </div>
       <div class="col-10 col-md-6 mx-auto ml-md-auto appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="500">
-       <img src="<?=base_url('assets/admin/uploads/'.$rowH->home_20);?>" style="border-radius: 20px 20px 20px 20px; margin-top:50px" class="img-fluid" alt="about skylabs"  />
+      <video class="img-fluid" style="border-radius:20px; margin-top:50px;" autoplay muted loop>
+    <source src="<?=base_url('assets/admin/uploads/'.$rowH->home_20);?>" type="video/mp4">
+</video>
       </div>
     </div>
   </div>
