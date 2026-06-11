@@ -148,7 +148,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-globe" aria-hidden="true"></i>  &nbsp; Change Lang
                             </button>
-                        <div class="dropdown-menu">
+                            
+                            <div class="dropdown-menu">
                            <?php
                            $statement = $this->db->query("SELECT * FROM lanuage WHERE 1 AND active = 'Active'");							
                            foreach ($statement->result() as $row) {
@@ -158,7 +159,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                            </a>
                            <?php } ?>
                          </div>
-                        </div>
+                        </div> &nbsp;&nbsp;
+                       <div class="dropdown ditem rr">
+    <a href="tel:8800138139"
+       class="btn btn-secondary dropdown-toggle"
+       role="button">
+        <i class="fa fa-phone" aria-hidden="true"></i>
+        &nbsp; 8800138139
+    </a>
+</div>
                         <?php
                            $statementAbt = $this->db->query("SELECT * FROM tbl_settings_contact WHERE 1");
                            foreach ($statementAbt->result() as $rowA) {
@@ -177,7 +186,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                            <li class="social-icons-instagram">
                               <a href="<?=$rowA->contact23;?>" target="_blank" title="Instragram"><i class="fab fa-youtube-square"></i></a>
                            </li>
+                         
                         </ul>
+                        
                         <?php } ?>
                      </div>
                   </div>

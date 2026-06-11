@@ -12,6 +12,7 @@ class Home extends CI_Controller {
 
 	public function index(){
 
+	
 		$data['meta_title'] = "Home";
 
 		$data['slider'] = $this->home_model->fetch_data('tbl_slider', 'id');
