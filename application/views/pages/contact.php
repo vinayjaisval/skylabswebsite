@@ -171,7 +171,9 @@ foreach ($statementAbt->result() as $rowA) {
                      <p class="mt-3">
                        
                         <i class="fas fa-map-marker-alt"></i>
-                       3rd floor, Providence Abode, 4th mile, Near Green Park, Chumoukedima, Nagaland, 797103
+
+                        JOY-7 TOWER NEAR CENTRAL JAIL JALLANG CHIMPU Itanagar  Capital Complex  Arunachal Pradesh 791113
+                       <!-- 3rd floor, Providence Abode, 4th mile, Near Green Park, Chumoukedima, Nagaland, 797103 -->
                      </p>
 
                      <p>
