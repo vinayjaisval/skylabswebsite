@@ -336,10 +336,43 @@
       </header>
       
       <style>
-          @media(max-width:767px){
-              .header-top-container { max-width:767px;}
-              .header-columnokh77{ width:140px !important;}
-              .social-icons{ font-size:11px;}
+          @media(max-width:991px){
+              .header-top {
+                  height: auto !important;
+                  padding: 8px 0 !important;
+              }
+              .header-top .header-top-container {
+                  max-width: 100% !important;
+                  padding: 0 15px !important;
+              }
+              .header-top .header-row {
+                  flex-direction: column !important;
+                  align-items: center !important;
+                  text-align: center !important;
+              }
+              .header-top .header-top-container .justify-content-start {
+                  display: none !important;
+              }
+              .header-top .header-columnokh77 {
+                  width: 100% !important;
+                  max-width: 100% !important;
+                  justify-content: center !important;
+                  flex-wrap: wrap !important;
+                  gap: 10px !important;
+                  padding: 5px 0 !important;
+              }
+              .header-top .header-columnokh77 .ditem {
+                  margin: 0 !important;
+              }
+              .header-top .header-columnokh77 .ditem .btn {
+                  font-size: 11px !important;
+                  padding: 6px 12px !important;
+              }
+              .header-top-social-icons {
+                  margin-top: 5px !important;
+                  margin-left: 0 !important;
+                  justify-content: center !important;
+              }
           }
       </style>
 

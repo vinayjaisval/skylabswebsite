@@ -314,7 +314,7 @@ foreach ($statement->result() as $rowH) {
 
 <style>
 .video_wrap_heiht{ display:none;}
-    .videoWarpper video{ height:auto !important; position: relative !important; margin-top:-123px;}
+    .videoWarpper video{ height:auto !important; position: relative !important; margin-top:0px;}
     
     @media(max-width:767px){
         .videoWarpper video{  margin-top:0px;}
