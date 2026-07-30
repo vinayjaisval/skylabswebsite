@@ -26,7 +26,6 @@
    </div>
    <section class="">
    	<div class="container">
-   		<div class="col-md-12">
    			<div class="row">
    				<div class="col-md-3">
    					<ul class="nav flex-column nav-tabs nav-tabs-vertical" id="tabVertical" role="tablist">
@@ -75,10 +74,35 @@
 
    		</div>
 
-   	</div>
-
 
    </section>
+
+<style>
+@media (max-width: 991px) {
+    #tabVertical {
+        margin-bottom: 25px !important;
+        border-bottom: 1px solid #ddd !important;
+        padding-bottom: 15px !important;
+    }
+}
+/* Responsive overrides for inline-styled database content */
+#tabVerticalContent img,
+#tabVerticalContent div,
+#tabVerticalContent p,
+#tabVerticalContent iframe,
+#tabVerticalContent span {
+    max-width: 100% !important;
+}
+#tabVerticalContent img {
+    height: auto !important;
+}
+#tabVerticalContent table {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+}
+</style>
 
 
 

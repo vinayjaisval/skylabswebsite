@@ -27,8 +27,8 @@
 					$statement = $this->db->query("SELECT * FROM partner WHERE 1 AND type= 4 AND active = 'Active'");							
 					foreach ($statement->result() as $row) {
 				?>
-				<div class="col-md-2 col-xs-6">
-					<img src="<?php echo base_url('assets/admin/uploads/'.$row->photo); ?>" style="height:100px;max-width:100px" alt="">
+				<div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4 d-flex align-items-center justify-content-center">
+					<img src="<?php echo base_url('assets/admin/uploads/'.$row->photo); ?>" style="max-height:80px; max-width:100%; object-fit:contain;" alt="">
 				</div>
 				<?php } ?>
 

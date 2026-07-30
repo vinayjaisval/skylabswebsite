@@ -34,7 +34,7 @@
                 <div class="row">
                 <?php foreach ($news as $row) { ?>
 
-                <div class="col-md-4">
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
                     <div class="blog-grid">
                         <div class="img-date">
                             <img src="<?=base_url('assets/admin/uploads/'.$row->photo);?>" class="img-fluid">
@@ -61,7 +61,7 @@
         </div>
 <?php if(!empty($news)){ ?>
     <nav aria-label="Page navigation example">
-        <ul class="pagination">
+        <ul class="pagination flex-wrap justify-content-center">
             <li class="page-item"><a class='page-link' href="<?=base_url($url12);?>?page=1&key=<?=$this->input->get('key');?>">First</a></li>
             <?php
                                               

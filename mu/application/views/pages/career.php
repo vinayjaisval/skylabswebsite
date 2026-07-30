@@ -69,7 +69,7 @@
 										</div> -->
 										<div class="form-row">
 											<div class="form-group col-md-6">
-											<select id="post_applied" name="post_applied" required>
+											<select id="post_applied" name="post_applied" class="form-control" required>
 													<option value="Select">Post Applied for</option>
 													<option value="Presales">Presales</option>
 													<option value="Project Manager">Project Manager</option>

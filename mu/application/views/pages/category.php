@@ -29,7 +29,7 @@
 				$sqlProd = $this->db->query("SELECT * FROM `tbl_products` WHERE `category_id` = '".$cat_id."' AND status = 1 order by `prod_id` DESC");
 				foreach($sqlProd->result() as $rowProd){ 
 			?>
-			<div class="row">
+			<div class="row mb-5 pb-4 border-bottom">
 				<?php if($i%2==0){ ?>
 				<div class="col-md-10 col-xs-12">
 					<h4><?=$rowProd->prod_title;?></h4>

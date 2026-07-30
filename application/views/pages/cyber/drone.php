@@ -768,6 +768,65 @@
         .drone-image {
             display: none;
         }
+
+        /* Prevent drone circle overflow on mobile */
+        .drone-img-center {
+            width: 290px !important;
+            height: 290px !important;
+        }
+
+        .drone-img {
+            max-width: 85% !important;
+            height: auto !important;
+        }
+
+        /* Prevent download section overflow on mobile */
+        .download-section {
+            flex-direction: column !important;
+            text-align: center !important;
+            padding: 30px 15px !important;
+        }
+
+        .text-container {
+            max-width: 100% !important;
+            margin-bottom: 30px !important;
+        }
+
+        .image-container {
+            max-width: 100% !important;
+        }
+
+        /* Prevent CTA section overflow on mobile */
+        .cta-container {
+            padding: 40px 15px !important;
+        }
+
+        .cta-heading {
+            font-size: 28px !important;
+            line-height: 34px !important;
+        }
+
+        .cta-description {
+            font-size: 14px !important;
+        }
+
+        .cta-description br {
+            display: none !important;
+        }
+
+        .cta-form {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 15px !important;
+        }
+
+        .cta-form input {
+            width: 90% !important;
+        }
+
+        .cta-form button {
+            width: 90% !important;
+        }
     }
 </style>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

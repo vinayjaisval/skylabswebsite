@@ -320,6 +320,16 @@ foreach ($statement->result() as $rowH) {
         .videoWarpper video{  margin-top:0px;}
     }
     
+    /* Tablet & Mobile Responsiveness Optimizations */
+    @media(max-width:991px){
+        .service_bx {
+            margin: 15px 0 !important;
+            max-width: 100% !important;
+        }
+        .bg-fixed-img {
+            background-attachment: scroll !important;
+        }
+    }
 </style>
 
   
