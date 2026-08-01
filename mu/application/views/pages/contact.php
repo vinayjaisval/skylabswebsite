@@ -34,7 +34,7 @@ foreach ($statementAbt->result() as $rowA) {
                      <span class="d-block top-sub-title text-color-primary appear-animation" data-appear-animation="maskUp"><?= $rowA->contact1; ?></span>
                   </div>
                   <div class="overflow-hidden mb-2">
-                     <h2 class="font-weight-bold mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="200"><?= $rowA->contact2; ?></h2>
+                     <h2 class="font-weight-bold mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="200" style="font-size: 2.2rem;"><?= ($rowA->contact2 == 'Our Branch') ? 'Our Branches' : $rowA->contact2; ?></h2>
                   </div>
                </div>
             </div>
@@ -110,8 +110,8 @@ color: black;"> <?= $rowA->contact16_1; ?></a>
                      <iframe src="<?= $contact_map_iframe; ?>" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
                   </div>
                </div>
-               <div class="col-lg-6 py-5 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600">
-                  <div class="p-4">
+               <div class="col-lg-6 py-lg-5 py-3 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600">
+                  <div class="p-lg-4 p-2">
                      <div class="row">
                         <div class="col">
                            <span class="top-sub-title text-color-primary"><?= $rowA->contact17; ?></span>

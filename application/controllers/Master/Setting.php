@@ -528,6 +528,7 @@ class Setting extends CI_Controller {
 		$config['upload_path']          = './assets/admin/uploads/';
 		$config['allowed_types']        = '*';
         $this->load->library('upload', $config);
+        $this->upload->initialize($config);
         if ( ! $this->upload->do_upload($filename)){
             return false;
         } else {

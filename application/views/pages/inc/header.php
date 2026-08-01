@@ -166,7 +166,7 @@ src="https://www.facebook.com/tr?id=434217555867355&ev=PageView&noscript=1"
 
                        <div class="dropdown ditem rr">
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-globe" aria-hidden="true"></i>  &nbsp; Change Lang
+                                <i class="fa fa-globe" aria-hidden="true"></i>  &nbsp; <span class="d-none d-md-inline">Change Language</span><span class="d-inline d-md-none">Lang</span>
                             </button>
                             
                             <div class="dropdown-menu">
@@ -181,11 +181,11 @@ src="https://www.facebook.com/tr?id=434217555867355&ev=PageView&noscript=1"
                          </div>
                         </div> &nbsp;&nbsp;
                        <div class="dropdown ditem rr">
-    <a href="tel:8800138139"
+    <a href="tel:+918800138139"
        class="btn btn-secondary dropdown-toggle"
        role="button">
-        <i class="fa fa-phone" aria-hidden="true"></i>
-        &nbsp; 8800138139
+        <i class="fa fa-phone fa-flip-horizontal" aria-hidden="true"></i>
+        &nbsp; <span class="d-none d-sm-inline">+91 8800138139</span>
     </a>
 </div>
                         <?php
@@ -431,10 +431,75 @@ src="https://www.facebook.com/tr?id=434217555867355&ev=PageView&noscript=1"
       </header>
       
       <style>
-          @media(max-width:767px){
-              .header-top-container { max-width:767px;}
-              .header-columnokh77{ width:140px !important;}
-              .social-icons{ font-size:11px;}
+          @media(max-width:991px){
+              .sky-logo {
+                  width: 150px !important;
+              }
+              .header-container .header-columnokh77 {
+                  width: auto !important;
+              }
+              .header-top {
+                  height: auto !important;
+                  padding: 4px 0 !important;
+              }
+              .header-top .header-top-container {
+                  max-width: 100% !important;
+                  padding: 0 10px !important;
+              }
+              .header-top .header-row {
+                  flex-direction: row !important;
+                  flex-wrap: nowrap !important;
+                  align-items: center !important;
+                  justify-content: space-between !important;
+              }
+              .header-top .header-top-container .justify-content-start {
+                  display: flex !important;
+                  flex: 1 !important;
+                  max-width: none !important;
+                  margin-bottom: 0 !important;
+                  padding-right: 10px !important;
+              }
+              .header-top .header-top-container .justify-content-start marquee {
+                  width: 100% !important;
+                  display: block !important;
+              }
+              .header-top .header-columnokh77 {
+                  width: auto !important;
+                  max-width: none !important;
+                  display: flex !important;
+                  flex-direction: row !important;
+                  flex-wrap: nowrap !important;
+                  align-items: center !important;
+                  justify-content: flex-end !important;
+                  padding: 0 !important;
+                  gap: 5px !important;
+              }
+              .header-top .header-columnokh77 .ditem {
+                  margin: 0 !important;
+              }
+              .header-top .header-columnokh77 .ditem .btn {
+                  font-size: 10px !important;
+                  padding: 4px 8px !important;
+                  white-space: nowrap !important;
+              }
+              .header-top-social-icons {
+                  margin: 0 !important;
+                  padding: 0 !important;
+                  display: flex !important;
+                  flex-direction: row !important;
+                  flex-wrap: nowrap !important;
+                  justify-content: center !important;
+                  gap: 3px !important;
+              }
+              .header-top-social-icons li {
+                  margin: 0 !important;
+                  padding: 0 !important;
+              }
+              .header-top-social-icons li a {
+                  font-size: 12px !important;
+                  padding: 0 !important;
+                  margin: 0 !important;
+              }
           }
       </style>
 

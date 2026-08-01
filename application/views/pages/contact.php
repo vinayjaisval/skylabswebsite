@@ -32,8 +32,8 @@ foreach ($statementAbt->result() as $rowA) {
                   <span class="d-block top-sub-title text-color-primary">
                      <?= $rowA->contact1; ?>
                   </span>
-                  <h2 class="font-weight-bold">
-                     <?= $rowA->contact2; ?>
+                  <h2 class="font-weight-bold" style="font-size: 2.2rem;">
+                     <?= ($rowA->contact2 == 'Our Branch') ? 'Our Branches' : $rowA->contact2; ?>
                   </h2>
                </div>
             </div>
@@ -49,7 +49,7 @@ foreach ($statementAbt->result() as $rowA) {
             <div class="row">
 
                <!-- Office 1 -->
-               <div class="col-md-3 mb-4">
+               <div class="col-lg-3 col-sm-6 col-12 mb-4">
                   <div class=" h-100 shadow-sm p-3">
                      <h3 class="font-weight-bold text-4">
                         <?= $rowA->contact3; ?>
@@ -87,7 +87,7 @@ foreach ($statementAbt->result() as $rowA) {
                </div>
 
                <!-- Office 2 -->
-               <div class="col-md-3 mb-4">
+               <div class="col-lg-3 col-sm-6 col-12 mb-4">
                   <div class=" h-100 shadow-sm p-3">
                      <h3 class="font-weight-bold text-4">
                         <?= $rowA->contact10; ?>
@@ -126,7 +126,7 @@ foreach ($statementAbt->result() as $rowA) {
 
                <!-- Office 3 -->
              
-               <div class="col-md-3 mb-4">
+               <div class="col-lg-3 col-sm-6 col-12 mb-4">
                   <div class=" h-100 shadow-sm p-3">
                      <h3 class="font-weight-bold text-4">
                         Nagaland
@@ -156,7 +156,7 @@ foreach ($statementAbt->result() as $rowA) {
                </div>
 
 
-               <div class="col-md-3 mb-4">
+               <div class="col-lg-3 col-sm-6 col-12 mb-4">
                   <div class=" h-100 shadow-sm p-3">
                      <h3 class="font-weight-bold text-4">
                         Arunachal Pradesh
@@ -198,7 +198,7 @@ foreach ($statementAbt->result() as $rowA) {
 
             <div class="row">
 
-               <div class="col-md-4 mb-4">
+               <div class="col-md-6 col-12 mb-4">
                   <div class=" h-100 shadow-sm p-3">
                      <h3 class="font-weight-bold text-4">
                         COTE D'IVOIRE Office
@@ -225,7 +225,7 @@ foreach ($statementAbt->result() as $rowA) {
                     
                   </div>
                </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-6 col-12 mb-4">
                   <div class=" h-100 shadow-sm p-3">
                      <h3 class="font-weight-bold text-4">
                         <?= $rowA->contact10_1; ?>
@@ -283,8 +283,8 @@ foreach ($statementAbt->result() as $rowA) {
                   </iframe>
                </div>
 
-               <div class="col-lg-6 py-5">
-                  <div class="p-4">
+               <div class="col-lg-6 py-lg-5 py-3">
+                  <div class="p-lg-4 p-2">
                      <span class="top-sub-title text-color-primary">
                         <?= $rowA->contact17; ?>
                      </span>
